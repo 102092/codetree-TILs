@@ -1,5 +1,5 @@
 n = int(input())
-arr = list(input().split(' '))
+arr = input().split(' ')
 arr = [int(x) for x in arr]
 
 for i in range(1, n):
