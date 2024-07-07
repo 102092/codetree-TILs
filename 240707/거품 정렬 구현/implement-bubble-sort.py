@@ -1,10 +1,13 @@
 n = int(input())
 arr = list(input().split(' '))
 
-
-for i in range(n):
-    for j in range(0, n - i - 1):
-        if int(arr[j]) > int(arr[j + 1]):
-            arr[j], arr[j + 1] = arr[j + 1], arr[j]
+while True:
+    sorted = True
+    for i in range(n - 1):
+        if int(arr[i]) > int(arr[i + 1]):
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+            sorted = False
+    if sorted:
+        break
 
 print(' '.join(map(str, arr)))
