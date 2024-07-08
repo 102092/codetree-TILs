@@ -1,32 +1,40 @@
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    
-    return merge(left, right)
+def merge_sort(arr, low, high):
+    if low < high:
+        mid = (low + high) // 2
+        merge_sort(arr, low, mid)
+        merge_sort(arr, mid + 1, high)
+        merge(arr, low, mid, high)
 
-def merge(left, right):
-    result = []
-    i, j = 0, 0
+def merge(arr, low, mid, high):
+    left = arr[low:mid + 1]
+    right = arr[mid + 1:high + 1]
+    
+    i = 0
+    j = 0
+    k = low
     
     while i < len(left) and j < len(right):
         if left[i] <= right[j]:
-            result.append(left[i])
+            arr[k] = left[i]
             i += 1
+            k += 1
         else:
-            result.append(right[j])
+            arr[k] = right[j]
             j += 1
+            k += 1
     
-    result.extend(left[i:])
-    result.extend(right[j:])
+    while i < len(left):
+        arr[k] = left[i]
+        i += 1
+        k += 1
     
-    return result
+    while j < len(right):
+        arr[k] = right[j]
+        j += 1
+        k += 1
 
 n = int(input())
 arr = list(map(int, input().split()))
 
-sorted_arr = merge_sort(arr)
-print(' '.join(map(str, sorted_arr)))
+merge_sort(arr, 0, n - 1)
+print(' '.join(map(str, arr)))
